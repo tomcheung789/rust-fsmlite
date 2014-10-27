@@ -1,10 +1,10 @@
 Rust-fsmlite
 ============
-Rust-fsmlite is a simple finite state machine library for Rust.
+fsmlite is a simple finite state machine library for Rust.
 
 Install
 ============
-Open your Cargo.toml and add dependency
+Add fsmlite to your Cargo.toml.
 ```
 [dependencies.fsmlite]
 
