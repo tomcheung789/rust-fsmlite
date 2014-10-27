@@ -1,0 +1,5 @@
+[package]
+
+name = "fsmlite"
+version = "0.0.1"
+authors = ["Chong Cheung <tomcheung789@gmail.com>"]
