@@ -1,3 +1,9 @@
+/*
+A Rust State Machine Library
+Copyright (c) 2014 Chong Cheung
+Licensed under the MIT license https://github.com/tomcheung789/rust-fsmlite/blob/master/LICENSE
+*/
+
 use std::default::Default;
 
 pub struct State{
@@ -62,16 +68,11 @@ impl Default for Machine{
 
 impl Machine{
   pub fn build(&mut self) -> Result<(), String>{
-    /*
-    check initial_state not null
-    check state not null
-    check state not duplicate
-    check event not null
-    check event not duplicate
-    if final_state yes , check event to_state == final_state >= 1
-    */
+    //check initial_state not null
     if self.initial_state.is_none() { return Err("Initial state cannot be none.".to_string()); }
+    //check state not null
     if self.states.len() == 0 { return Err("No State is defined.".to_string()); }
+    //check state not duplicate
     for s in self.states.iter(){
       let mut count = 0i;
       for sl in self.states.iter(){
@@ -79,6 +80,7 @@ impl Machine{
       }
       if count != 1 { return Err(format!("Duplicate state definition: {}.",s.name)); }
     }
+    //check event not null
     if self.events.len() == 0 { return Err("No Event is defined.".to_string()); }
     {
       let state_exists = |state: String| -> bool {
@@ -87,6 +89,7 @@ impl Machine{
         }
         false
       };
+      //check event not duplicate
       for e in self.events.iter(){
         let mut count = 0i;
         for el in self.events.iter(){
@@ -100,6 +103,7 @@ impl Machine{
         if state_exists(e.to_state.clone()) == false { return Err(format!("State {} is not defined.", e.to_state)); }
       }
     }
+    //if final_state yes , check event to_state == final_state != 0
     if self.final_state.is_some() {
       let final_state = self.final_state.clone().unwrap();
       let mut count = 0i;
